@@ -16,24 +16,14 @@ module Pygmy
     end
 
     def self.ls_cmd
-      cmd = 'docker image ls --format "{{.Repository}}:{{.Tag}}"'
+      cmd = 'docker image ls --format "{{.Repository}}:{{.Tag}}" | grep amazeeio/ | grep -v none'
       list = Sh.run_command(cmd)
-
-      # For better handling of containers, we should compare our
-      # results against a whitelist instead of preferential
-      # treatment of linux pipes.
-      containers = list.stdout.split("\n")
-      amazee_containers = []
-      containers.each do |container|
-        # Selectively target amazeeio/* images.
-        if container.include?('amazeeio/')
-          # Filter out items which we don't want.
-          unless container.include?("none") || container.include?("ssh-agent") || container.include?("haproxy")
-            amazee_containers.push(container)
-          end
-        end
+      unless list.success?
+        raise RuntimeError.new(
+            "Failed to list amazee docker images.  Command #{cmd} failed"
+        )
       end
-      amazee_containers
+      list.stdout.split("\n")
     end
 
     def self.pull_all
