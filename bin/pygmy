@@ -112,6 +112,7 @@ class PygmyBin < Thor
     Pygmy::Haproxy.pull
     Pygmy::Mailhog.pull
     Pygmy::SshAgent.pull
+    Pygmy::Traefik.pull
     Pygmy::Amazee.pull_all
     puts "Done. Recreating containers...".yellow
     exec_stop({:destroy => true})
@@ -134,6 +135,12 @@ class PygmyBin < Thor
       puts "Error starting haproxy".red
     end
 
+    if Pygmy::Traefik.start
+      puts "Successfully started traefik".green
+    else
+      puts "Error starting traefik".red
+    end
+
     if Pygmy::DockerNetwork.create
       puts "Successfully created amazeeio network".green
     else
@@ -144,6 +151,12 @@ class PygmyBin < Thor
       puts "Successfully connected haproxy to amazeeio network".green
     else
       puts "Error connecting haproxy to amazeeio network".red
+    end
+
+    if Pygmy::Traefik.connect
+      puts "Successfully connected traefik to amazeeio network".green
+    else
+      puts "Error connecting traefik to amazeeio network".red
     end
 
     if Pygmy::Mailhog.start
@@ -199,6 +212,12 @@ class PygmyBin < Thor
       puts "[*] Network: Haproxy #{Pygmy::DockerNetwork.haproxy_name} connected to #{Pygmy::DockerNetwork.network_name}".green
     else
       puts "[*] Haproxy is not connected to #{Pygmy::DockerNetwork.network_name}".red
+    end
+
+    if Pygmy::Traefik.running?
+      puts "[*] Traefik: Running as docker container #{Pygmy::Traefik.container_name}".green
+    else
+      puts "[*] Traefik is not running".red
     end
 
     if Pygmy::Mailhog.running?
@@ -294,6 +313,19 @@ class PygmyBin < Thor
       end
     else
       puts "Haproxy container failed to stop".red
+    end
+
+    if Pygmy::Traefik.stop
+      puts "Traefik container stopped".green
+      if options[:destroy]
+        if Pygmy::Traefik.delete
+          puts "Traefik container successfully deleted".green
+        else
+          puts "Traefik container failed to delete".red
+        end
+      end
+    else
+      puts "Traefik container failed to stop".red
     end
 
   end
