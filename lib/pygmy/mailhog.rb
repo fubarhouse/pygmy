@@ -25,6 +25,7 @@ module Pygmy
       '-e "MH_UI_BIND_ADDR=0.0.0.0:80" ' \
       '-e "MH_API_BIND_ADDR=0.0.0.0:80" ' \
       '-e "AMAZEEIO=AMAZEEIO" ' \
+      "--label traefik.frontend.rule=Host:#{Shellwords.escape(self.container_name)} " \
       "#{Shellwords.escape(self.image_name)}"
     end
   end
