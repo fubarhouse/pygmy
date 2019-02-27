@@ -37,7 +37,7 @@ module Pygmy
 
     def self.run_cmd
       "docker run -d " \
-      "-p 8080:8080 " \
+      "-p 80:80 -p 8080:8080 " \
       "--volume=/var/run/docker.sock:/var/run/docker.sock " \
       "--name=#{Shellwords.escape(self.container_name)} " \
       "#{Shellwords.escape(self.image_name)} " \
