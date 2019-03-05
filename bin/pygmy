@@ -95,6 +95,8 @@ class PygmyBin < Thor
     > $ pygmy restart [-d|--destroy]
   LONGDESC
   option :destroy, type: :boolean, aliases: '-d', default: false
+  option :resolver, type: :boolean, default: true
+  option :traefik, type: :boolean, default: false
   def restart
     exec_stop(options)
     exec_up(options)
