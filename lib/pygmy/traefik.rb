@@ -42,9 +42,9 @@ module Pygmy
       "--volume=/var/run/docker.sock:/var/run/docker.sock " \
       "--name=#{Shellwords.escape(self.container_name)} " \
       "--label traefik.frontend.rule=Host:#{Shellwords.escape(self.container_name)} " \
-      '--label traefik.docker.network=amazeeio-network ' \
       "#{Shellwords.escape(self.image_name)} " \
       "--api --docker " \
+      '--docker.network=amazeeio-network ' \
       "--docker.domain=docker.amazee.io"
     end
 
