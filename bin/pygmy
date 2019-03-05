@@ -43,6 +43,8 @@ class PygmyBin < Thor
     Runs 'docker pull' on the Docker images in order to get their newest versions.
     After that restarts all containers with removing them, so that the new images are used.
   LONGDESC
+  option :resolver, type: :boolean, default: true
+  option :traefik, type: :boolean, default: false
   def update
     exec_update
   end
