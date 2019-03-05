@@ -9,7 +9,7 @@ module Pygmy
     end
 
     def self.container_name
-      'containous-traefik'
+      'traefik.docker.amazee.io'
     end
 
     def self.network_name
@@ -40,6 +40,7 @@ module Pygmy
       "-p 80:80 -p 8080:8080 -p 443:443 " \
       "--volume=/var/run/docker.sock:/var/run/docker.sock " \
       "--name=#{Shellwords.escape(self.container_name)} " \
+      "--label traefik.frontend.rule=Host:#{Shellwords.escape(self.container_name)} " \
       "#{Shellwords.escape(self.image_name)} " \
       "--api --docker " \
       '--docker.domain="docker.amazee.io" '
