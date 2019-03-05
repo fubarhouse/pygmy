@@ -38,6 +38,7 @@ module Pygmy
     def self.run_cmd
       "docker run -d " \
       "-p 80:80 -p 8080:8080 -p 443:443 " \
+      "--restart always " \
       "--volume=/var/run/docker.sock:/var/run/docker.sock " \
       "--name=#{Shellwords.escape(self.container_name)} " \
       "--label traefik.frontend.rule=Host:#{Shellwords.escape(self.container_name)} " \
