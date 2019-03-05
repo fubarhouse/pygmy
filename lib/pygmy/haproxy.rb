@@ -14,7 +14,7 @@ module Pygmy
 
     def self.run_cmd
       "docker run -d " \
-      "-p 443:443 " \
+      "-p 80:80 -p 443:443 " \
       "--volume=/var/run/docker.sock:/tmp/docker.sock " \
       "--restart=always " \
       "--name=#{Shellwords.escape(self.container_name)} " \
