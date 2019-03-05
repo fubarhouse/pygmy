@@ -45,7 +45,7 @@ module Pygmy
       '--label traefik.docker.network=amazeeio-network ' \
       "#{Shellwords.escape(self.image_name)} " \
       "--api --docker " \
-      "'--docker.domain=docker.amazee.io ' \"
+      "--docker.domain=docker.amazee.io"
     end
 
   end
