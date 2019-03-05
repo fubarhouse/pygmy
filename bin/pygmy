@@ -241,6 +241,12 @@ class PygmyBin < Thor
       puts "[*] Traefik is not running".red
     end
 
+    if Pygmy::Traefik.connected?
+      puts "[*] Network: Traefik #{Pygmy::Traefik.container_name} connected to #{Pygmy::DockerNetwork.network_name}".green
+    else
+      puts "[*] Traefik is not connected to #{Pygmy::DockerNetwork.network_name}".red
+    end
+
     if Pygmy::Mailhog.running?
       puts "[*] Mailhog: Running as docker container #{Pygmy::Mailhog.container_name}".green
     else
