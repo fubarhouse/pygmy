@@ -171,7 +171,7 @@ class PygmyBin < Thor
     end
 
     if options[:traefik]
-      unless Pygmy::Traefik.running?
+      unless Pygmy::Haproxy.running?
         if Pygmy::Traefik.connect
           puts "Successfully connected traefik to amazeeio network".green
         else
