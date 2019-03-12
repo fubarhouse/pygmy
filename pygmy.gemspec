@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'pygmy/version'
 
 Gem::Specification.new do |s|
-  s.name        = 'pygmy'
+  s.name        = 'pygmy-traefik'
   s.version     = Pygmy::VERSION
   s.date        = Pygmy::DATE
   s.summary     = 'pygmy provides the required servies to run the ' \
