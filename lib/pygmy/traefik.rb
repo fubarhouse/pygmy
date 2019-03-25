@@ -4,8 +4,12 @@ module Pygmy
   class Traefik
     extend Pygmy::DockerService
 
+    def self.domain
+      'docker.amazee.io'
+    end
+
     def self.image_name
-      'traefik:1.7.9'
+      'traefik:2.0'
     end
 
     def self.container_name
@@ -41,11 +45,11 @@ module Pygmy
       "--restart always " \
       "--volume=/var/run/docker.sock:/var/run/docker.sock " \
       "--name=#{Shellwords.escape(self.container_name)} " \
+      "--label traefik.domain=#{Shellwords.escape(self.domain)} " \
+      "--label traefik.network=#{Shellwords.escape(self.network_name)} " \
       "--label traefik.frontend.rule=Host:#{Shellwords.escape(self.container_name)} " \
       "#{Shellwords.escape(self.image_name)} " \
-      "--api --docker " \
-      '--docker.network=amazeeio-network ' \
-      "--docker.domain=docker.amazee.io"
+      "--api --providers.docker "
     end
 
   end
