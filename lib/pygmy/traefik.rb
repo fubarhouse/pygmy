@@ -60,7 +60,8 @@ module Pygmy
       "--name=#{Shellwords.escape(self.container_name)} " \
       '--label traefik.docker.network=amazeeio-network ' \
       "#{Shellwords.escape(self.image_name)} " \
-      "--api --providers.docker "
+      "--api --providers.docker " \
+      "--providers.docker.defaultrule=#{Shellwords.escape(self.host)} "
     end
 
   end
