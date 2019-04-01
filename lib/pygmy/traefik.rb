@@ -20,6 +20,10 @@ module Pygmy
       'amazeeio-network'
     end
 
+    def self.host
+      "Host(`{{ .Name }}.#{self.domain}`)"
+    end
+
     def self.connect_cmd
       "docker network connect #{self.network_name} #{self.container_name}"
     end
