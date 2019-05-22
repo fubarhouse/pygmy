@@ -195,7 +195,7 @@ class PygmyBin < Thor
       puts "[*] Network does not exist".red
     end
 
-    if Pygmy::DockerNetwork.haproxy_connected?
+    if Pygmy::DockerNetwork.exists? and Pygmy::DockerNetwork.haproxy_connected?
       puts "[*] Network: Haproxy #{Pygmy::DockerNetwork.haproxy_name} connected to #{Pygmy::DockerNetwork.network_name}".green
     else
       puts "[*] Haproxy is not connected to #{Pygmy::DockerNetwork.network_name}".red
