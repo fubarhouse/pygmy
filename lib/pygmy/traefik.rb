@@ -5,7 +5,7 @@ module Pygmy
     extend Pygmy::DockerService
 
     def self.image_name
-      'traefik:1.7.11'
+      'traefik:1.7.12'
     end
 
     def self.container_name
